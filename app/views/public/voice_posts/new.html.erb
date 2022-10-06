@@ -1,0 +1,12 @@
+<h1>投稿ユーザー情報</h1>
+<h1>投稿フォーム</h1>
+<%= form_with model: @voice_posts, url: '/public/voice_posts', method: :post do |f| %>
+<h4>title</h4>
+<%= f.text_field :title %>
+<h4>introduction</h4>
+<%= f.text_field :introduction %>
+<h4>音声ファイル</h4>
+ <%= f.file_field :voice %>
+<%= f.submit '投稿' %>
+<% end %>
+

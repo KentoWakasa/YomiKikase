@@ -3,13 +3,15 @@ Rails.application.routes.draw do
   namespace :public do
     get 'customers/show'
     get 'customers/edit'
+    resources :voice_posts
+    # get 'voice_posts/new'
+    # post 'voice_posts' => 'voice_posts#create'
   end
+
+
   root to: 'public/homes#top'
   post 'public/homes/guest_sign_in', to: 'public/homes#guest_sign_in'
 
-
-  namespace :public do
-  end
 
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"

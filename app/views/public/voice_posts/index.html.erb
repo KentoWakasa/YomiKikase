@@ -1,0 +1,27 @@
+<h1>投稿一覧</h1>
+<% @voice_posts.each do |voice_post| %>
+  <p>title:<%= voice_post.title %></p>
+  <p>introduction:<%= voice_post.introduction %></p>
+  <audio src= "<%= "#{voice_post.voice}" %>" controls=""></audio>
+  <%= link_to "削除", public_voice_post_path(voice_post), method: :delete %>
+<% end %>
+
+
+<%
+=begin
+%>
+
+<p>
+  <strong>添付ファイル:</strong>
+  <% if @cat.attachments.attached? %>
+    <% @cat.attachments.each do |obj| %>
+      <% url = rails_blob_path(obj) %>
+      <br>
+      <%= link_to URI.unescape(File.basename(url)),url %>
+    <% end %>
+  <% end %>
+</p>
+
+<%
+=end
+%>
