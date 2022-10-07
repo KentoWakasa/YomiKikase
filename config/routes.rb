@@ -4,10 +4,9 @@ Rails.application.routes.draw do
     get 'customers/show'
     get 'customers/edit'
     resources :voice_posts do
+      resource :favorites
       resources :comment_posts
     end
-    # get 'voice_posts/new'
-    # post 'voice_posts' => 'voice_posts#create'
   end
 
 

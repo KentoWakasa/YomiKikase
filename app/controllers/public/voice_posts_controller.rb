@@ -19,7 +19,6 @@ class Public::VoicePostsController < ApplicationController
 
   def show
     @voice_posts = VoicePost.find(params[:id])
-    @new_voice_posts = VoicePost.new
     @comment_posts = CommentPost.new
   end
 
