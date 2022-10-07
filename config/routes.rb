@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   namespace :public do
     get 'customers/show'
     get 'customers/edit'
-    resources :voice_posts
+    resources :voice_posts do
+      resources :comment_posts
+    end
     # get 'voice_posts/new'
     # post 'voice_posts' => 'voice_posts#create'
   end

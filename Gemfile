@@ -59,3 +59,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 
 gem 'audiojs-rails'
+
+# Ruby3系でRSpecを実施するときに必要になってくるgem
+gem 'net-smtp'
+gem 'net-pop'
+gem 'net-imap'
