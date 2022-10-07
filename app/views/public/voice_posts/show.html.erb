@@ -1,0 +1,23 @@
+<h1>投稿詳細</h1>
+<p>title:<%= @voice_posts.title %></p>
+  <p>introduction:<%= @voice_posts.introduction %></p>
+  <% if @voice_posts.voice.attached? %>
+    <audio src="<%= rails_storage_redirect_path(@voice_posts.voice) %>" controls=""></audio>
+  <% else %>
+    ないよ
+  <% end %>
+  <%= link_to "削除", public_voice_post_path(@voice_posts), method: :delete %>
+
+<div>
+  <p>コメント件数：<%= @voice_posts.comment_posts.count %></p>
+  <% @voice_posts.comment_posts.each do |comment_post| %>
+    <%= comment_post.customer.name %>
+    <%= comment_post.created_at.strftime('%Y/%m/%d') %><%= comment_post.comment %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@new_voice_posts, @comment_posts], url: '/public/voice_posts/:voice_post_id/comment_posts' , method: :post do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
