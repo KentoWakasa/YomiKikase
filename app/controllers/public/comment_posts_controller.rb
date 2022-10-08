@@ -5,7 +5,7 @@ class Public::CommentPostsController < ApplicationController
     comment = current_customer.comment_posts.new(comment_post_params)
     comment.voice_post_id = voice_post.id
     comment.save
-    redirect_to root_path
+    redirect_to public_voice_posts_path
   end
 
   private

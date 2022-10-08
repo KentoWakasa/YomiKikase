@@ -7,6 +7,11 @@ Rails.application.routes.draw do
       resource :favorites
       resources :comment_posts
     end
+    resources :customers do
+      resource :relationships
+      get 'followings' => 'registrations#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+    end
   end
 
 

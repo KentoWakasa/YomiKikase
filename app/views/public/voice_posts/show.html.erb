@@ -9,8 +9,7 @@
   <%= link_to "削除", public_voice_post_path(@voice_posts), method: :delete %>
 
 
-
-   <% if @voice_posts.favorited_by?(current_user) %>
+   <% if @voice_posts.favorited_by?(current_customer) %>
     <p>
       <%= link_to public_voice_post_favorites_path(@voice_posts), method: :delete do %>
         ♥<%= @voice_posts.favorites.count %> いいね
@@ -26,6 +25,14 @@
 
 
 
+  <% if current_customer.following?(@voice_posts.customer) %>
+    <%= link_to "フォロー外す", public_customer_relationships_path(@voice_posts.customer.id), method: :delete %>
+  <% else %>
+    <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
+  <% end %>
+
+
+
 <div>
   <p>コメント件数：<%= @voice_posts.comment_posts.count %></p>
   <% @voice_posts.comment_posts.each do |comment_post| %>
@@ -34,15 +41,11 @@
   <% end %>
 </div>
 
-<%
-=begin
-%>
 <div>
-  <%= form_with model: [@voice_posts, @comment_posts], url: public_voice_post_comment_posts_path, method: :post do |f| %>
+  <%= form_with model: [@voice_posts, @comment_posts], url: public_voice_post_comment_posts_path(@voice_posts.id), method: :post do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>
 </div>
-<%
-=end
-%>
+
+<%= link_to "index",public_voice_posts_path %>
