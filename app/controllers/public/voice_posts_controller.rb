@@ -4,7 +4,6 @@ class Public::VoicePostsController < ApplicationController
     @voice_posts = VoicePost.new
   end
 
-
   def create
     @voice_posts = VoicePost.new(voice_posts_params)
     @voice_posts.voice = params[:voice_post][:voice]
