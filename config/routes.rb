@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resource :relationships
       get 'followings' => 'registrations#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
+      get :search, on: :collection
     end
   end
 
