@@ -1,9 +1,10 @@
 class Public::HomesController < ApplicationController
-  
+
   def top
-    @voice_posts = current_customer.voice_posts.all
+    @voice_posts = VoicePost.where(customer_id: [current_customer.id, *current_customer.following_ids])
+    # @voice_posts = current_customer.voice_posts
   end
-  
+
   def guest_sign_in
     customer = Customer.find_or_create_by!(email: 'guest@example.com') do |user|
     user.password = SecureRandom.urlsafe_base64
