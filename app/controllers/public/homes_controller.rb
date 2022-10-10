@@ -1,5 +1,7 @@
 class Public::HomesController < ApplicationController
+  
   def top
+    @voice_posts = current_customer.voice_posts.all
   end
   
   def guest_sign_in

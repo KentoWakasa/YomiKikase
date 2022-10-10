@@ -1,3 +1,8 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<h1>timeline</h1>
+<% @voice_posts.each do |voice_post| %>
+ <p>title:<%= link_to voice_post.title, public_voice_post_path(voice_post) %></p>
+  <p>introduction:<%= voice_post.introduction %></p>
+    <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
+  <% end %>
+
 <%= link_to "index",public_voice_posts_path %>
