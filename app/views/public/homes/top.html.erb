@@ -2,7 +2,9 @@
 <% @voice_posts.each do |voice_post| %>
  <p>title:<%= link_to voice_post.title, public_voice_post_path(voice_post) %></p>
   <p>introduction:<%= voice_post.introduction %></p>
+     <% if voice_post.voice.attached? %>
     <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
+  <% else %>
+    ないよ
   <% end %>
-
-<%= link_to "index",public_voice_posts_path %>
+  <% end %>
