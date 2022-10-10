@@ -1,0 +1,20 @@
+<h1>Customer search</h1>
+<%= form_with url: search_public_customers_path, method: :get, local: true do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit :search %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+</table>
+<tbody>
+  <% @customers.each do |customer| %>
+  <tr>
+    <td><%= customer.name %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
