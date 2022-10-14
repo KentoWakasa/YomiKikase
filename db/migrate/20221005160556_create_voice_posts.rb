@@ -5,6 +5,7 @@ class CreateVoicePosts < ActiveRecord::Migration[6.1]
       t.string :introduction
       t.string :voice
       t.integer :customer_id
+      t.string :category
 
       t.timestamps
     end

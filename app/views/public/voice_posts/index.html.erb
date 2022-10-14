@@ -7,9 +7,30 @@
   <% else %>
     ないよ
   <% end %>
+  <br>
+  <%= render_with_hashtags(voice_post.category) %>
+  <br>
   <%= link_to "削除", public_voice_post_path(voice_post), method: :delete %>
 <% end %>
+
+<%
+=begin
+%>
+
 <br>
+<% @tag_list.each do |list| %>
+<%= list.name %>
+<%= "(#{list.voice_post.count})" %>
+<% end %>
+
+<% @voice_posts_page.each do |post| %>
+<i class = "fas fa-tag"><%= post.tags.map(&:name).join(',') %></i>
+<% end %>
+<%
+=end
+%>
+
 <br>
 <%= link_to "new", new_public_voice_post_path %>
+<br>
 <%= link_to "search", search_public_customers_path %>
