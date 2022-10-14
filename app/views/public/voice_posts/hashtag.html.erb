@@ -1,0 +1,23 @@
+<% if params[:name] == nil %>
+
+<% else %>
+    <% @voice_posts.each do |voice_post| %>
+     <p>title:<%= link_to voice_post.title, public_voice_post_path(voice_post) %></p>
+      <p>introduction:<%= voice_post.introduction %></p>
+         <% if voice_post.voice.attached? %>
+        <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
+         <% else %>
+            ないよ
+         <% end %>
+    <% end %>
+  <% end %>
+
+
+
+<div class= "hashtag-name">
+  <% @hashtags.sort.reverse.each do |count| %>
+      <% count[1].each do |hashtag| %>
+      <p><%= link_to  "##{hashtag.hashname} (#{hashtag.voice_posts.count}) 件","/voice_post/hashtag/#{hashtag.hashname}",data: {"turbolinks" => false} %>
+      </p>
+      <% end %>
+  <% end %>

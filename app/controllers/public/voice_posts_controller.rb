@@ -8,8 +8,11 @@ class Public::VoicePostsController < ApplicationController
     @voice_posts = VoicePost.new(voice_posts_params)
     @voice_posts.voice = params[:voice_post][:voice]
     @voice_posts.customer_id = current_customer.id
-    @voice_posts.save
+    if @voice_posts.save
     redirect_to public_voice_posts_path
+    else
+    render :new
+    end
   end
 
   def index
@@ -19,6 +22,7 @@ class Public::VoicePostsController < ApplicationController
   def show
     @voice_posts = VoicePost.find(params[:id])
     @comment_posts = CommentPost.new
+    # @post_tag = @post.tags
   end
 
   def destroy
@@ -27,10 +31,23 @@ class Public::VoicePostsController < ApplicationController
     redirect_to public_voice_posts_path
   end
 
+  def hashtag
+    @customer = current_customer
+    if params[:name].nil?
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_post.count}
+    else
+      @hashtag = Hashtag.find_by(hashname: params[:name])
+      @voice_posts = @hashtag.voice_posts
+      # .page(params[:page]).per(20).reverse_order
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_posts.count}
+    end
+  end
+
+
   private
 
   def voice_posts_params
-    params.require(:voice_post).permit(:title, :introduction, :voice)
+    params.require(:voice_post).permit(:title, :introduction, :voice, :category, hashtag_ids: [])
   end
 
 end

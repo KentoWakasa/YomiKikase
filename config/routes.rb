@@ -3,10 +3,19 @@ Rails.application.routes.draw do
   namespace :public do
     get 'customers/show'
     get 'customers/edit'
+
     resources :voice_posts do
       resource :favorites
       resources :comment_posts
     end
+
+    get '/voice_posts/hashtag/:name', to: "voice_posts#hashtag"
+    get '/voice_posts/hashtag' => 'voice_posts#hashtag'
+
+
+
+
+
     resources :customers do
       resource :relationships
       get 'followings' => 'registrations#followings', as: 'followings'

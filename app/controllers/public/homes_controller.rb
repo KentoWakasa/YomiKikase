@@ -2,7 +2,6 @@ class Public::HomesController < ApplicationController
 
   def top
     @voice_posts = VoicePost.where(customer_id: [current_customer.id, *current_customer.following_ids])
-    # @voice_posts = current_customer.voice_posts
   end
 
   def guest_sign_in
