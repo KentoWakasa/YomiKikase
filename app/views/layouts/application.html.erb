@@ -6,36 +6,76 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header>
+    <nav class="navbar justify-content-center bg-transparent">
+       <div class="container-fluid justify-content-center">
+         <%= link_to root_path  do %>
+          <%= image_tag 'Logo.png', size: '150x120' %>
+         <% end %>
+    </div>
+    <div class="container-fluid justify-content-center">
     <% if customer_signed_in? %>
-      <li>
+
+<%
+=begin
+%>
+      <table>
+        <tr>
+      <th>
         <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-      <li>
+      </th>
+      <th>
         <%= link_to "top", root_path %>
-      </li>
-      <li>
+      </th>
+      <th>
+        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+      </th>
+      <th>
+        <%= link_to "top", root_path %>
+      </th>
+      </tr>
+      </table>
+<%
+=end
+%>
+
+      <div class="col texit-white">
+        <%= link_to "my page", {controller: 'voice_posts', action: 'index', id: current_customer.id}, class:"Editlink" %>
+      </div>
+      <div class="col">
         <%= link_to "new", new_public_voice_post_path %>
-      </li>
-      <li>
-        <%= link_to "index", public_voice_posts_path %>
-      </li>
+      </div>
+      <div class="col">
+        <%= link_to "search", search_public_customers_path %>
+      </div>
+       <div class="col text-center">
+        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+      </div>
+
     <% else %>
-      <li>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
         <%= link_to "新規登録", new_customer_registration_path %>
-      </li>
+      <li class="nav-item">
       <li>
         <%= link_to "ログイン", new_customer_session_path %>
       </li>
-       <li>
-        <%= link_to 'ゲストログイン（閲覧用）', public_homes_guest_sign_in_path, method: :post %>
+       <li >
+        <%= link_to 'ゲストログイン（閲覧用）', public_guest_sign_in_path, method: :post %>
       </li>
+      </ul>
     <% end %>
+    </div>
+    </div>
+    </div>
+
+    </nav>
+    <div class = "partbody">
     <%= yield %>
+    </div>
   </body>
 </html>
