@@ -1,54 +1,91 @@
-<h1>投稿詳細</h1>
-<p>title:<%= @voice_posts.title %></p>
-  <p>introduction:<%= @voice_posts.introduction %></p>
-  <% if @voice_posts.voice.attached? %>
-    <audio src="<%= rails_storage_redirect_path(@voice_posts.voice) %>" controls=""></audio>
-  <% else %>
-    ないよ
-  <% end %>
-  <%= link_to "削除", public_voice_post_path(@voice_posts), method: :delete %>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <div>user info</div>
+      <div>user image: </div>
+      <div>user name: <%=link_to @voice_posts.customer.name, {controller: 'voice_posts', action: 'index', id: @voice_posts.customer.id} %></div>
+      <div>user follows count</div>
+      <div>user follower count</div>
+                <tr>
+            <td>
+            <%= form_with model: [@voice_posts, @comment_posts], url: public_voice_post_comment_posts_path(@voice_posts.id), method: :post do |f| %>
+              <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+              <%= f.submit "送信する" %>
+             <% end %>
+             </td>
+          </tr>
+                  <tr>
+            <td>
+              <% if @voice_posts.favorited_by?(current_customer) %>
+                <%= link_to public_voice_post_favorites_path(@voice_posts), method: :delete do %>
+                  good ♥<%= @voice_posts.favorites.count %>
+                <% end %>
+              <% else %>
+                <%= link_to public_voice_post_favorites_path(@voice_posts), method: :post do %>
+                  good ♡<%= @voice_posts.favorites.count %>
+                <% end %>
+              <% end %>
+              </td>
+          </tr>
+          <tr>
+            <td>
+            <% if current_customer.following?(@voice_posts.customer) %>
+              <%= link_to "フォロー外す", public_customer_relationships_path(@voice_posts.customer.id), method: :delete %>
+            <% else %>
+              <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
+            <% end %>
+            </td>
+          </tr>
+    </div>
+    <table class="col-8">
+      <thead>
+        <tr align="center">
+          <th colspan="6"><i class="far fa-clock"></i><%= @voice_posts.customer.name %>さんの投稿詳細</th>
+        </tr>
+      </thead>
+       <tbody>
+          <tr class = "text-center">
+            <td class = "col">title</td>
+            <td class = "col">image</td>
+            <td class = "col">#tag</td>
+            <td class = "col">audio</td>
+            <td class = "col">good</td>
+            <td class = "col">comment</td>
+           </tr>
+          <tr class = "text-center">
+            <td><%= link_to @voice_posts.title, public_voice_post_path(@voice_posts) %></td>
+            <td></td>
+            <td><%= render_with_hashtags(@voice_posts.category) %></td>
+            <td>
+              <% if @voice_posts.voice.attached? %>
+                <audio src="<%= rails_storage_redirect_path(@voice_posts.voice) %>" controls=""></audio>
+              <% else %>
+                ないよ
+              <% end %>
+            </td>
+            <td>♡<%= @voice_posts.favorites.count %></td>
+            <td><%= @voice_posts.comment_posts.count %></td>
+            <td><%= link_to "削除", public_voice_post_path(@voice_posts), method: :delete %></td>
+          </tr>
+
+<%
+=begin
+%>
+          <tr>
+            <td>
+            <% @voice_posts.comment_posts.each do |comment_post| %>
+              <%= comment_post.customer.name %>
+              <%= comment_post.created_at.strftime('%Y/%m/%d') %><%= comment_post.comment %>
+            <% end %>
+            </td>
+          </tr>
+<%
+=end
+%>
 
 
-   <% if @voice_posts.favorited_by?(current_customer) %>
-    <p>
-      <%= link_to public_voice_post_favorites_path(@voice_posts), method: :delete do %>
-        ♥<%= @voice_posts.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to public_voice_post_favorites_path(@voice_posts), method: :post do %>
-        ♡<%= @voice_posts.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
 
-  <%# @post_tags.each do |tag| %>
-  <%#=tag.name%><%#="(#{tag.posts.count})" %><%# end %>
-
-
-
-  <% if current_customer.following?(@voice_posts.customer) %>
-    <%= link_to "フォロー外す", public_customer_relationships_path(@voice_posts.customer.id), method: :delete %>
-  <% else %>
-    <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
-  <% end %>
-
-
-
-<div>
-  <p>コメント件数：<%= @voice_posts.comment_posts.count %></p>
-  <% @voice_posts.comment_posts.each do |comment_post| %>
-    <%= comment_post.customer.name %>
-    <%= comment_post.created_at.strftime('%Y/%m/%d') %><%= comment_post.comment %>
-  <% end %>
-</div>
-
-<div>
-  <%= form_with model: [@voice_posts, @comment_posts], url: public_voice_post_comment_posts_path(@voice_posts.id), method: :post do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-
-<%= link_to "index",public_voice_posts_path %>
+        </tbody>
+      </table>
+    </div>
+  </div>

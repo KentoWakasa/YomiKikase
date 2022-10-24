@@ -16,12 +16,15 @@ class Public::VoicePostsController < ApplicationController
   end
 
   def index
-    @voice_posts = VoicePost.all
+    @customers = Customer.find(params[:id]) #user infoのuser nameから受け取る
+    @voice_posts = @customers.voice_posts
   end
 
   def show
     @voice_posts = VoicePost.find(params[:id])
     @comment_posts = CommentPost.new
+    # @customers = VoicePost.customers
+    # @customer = Customer.find(params[:id])
     # @post_tag = @post.tags
   end
 

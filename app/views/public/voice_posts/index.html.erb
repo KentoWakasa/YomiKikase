@@ -1,36 +1,45 @@
-<h1>投稿一覧</h1>
-<% @voice_posts.each do |voice_post| %>
-  <p>title:<%= link_to voice_post.title, public_voice_post_path(voice_post) %></p>
-  <p>introduction:<%= voice_post.introduction %></p>
-  <% if voice_post.voice.attached? %>
-    <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
-  <% else %>
-    ないよ
-  <% end %>
-  <br>
-  <%= render_with_hashtags(voice_post.category) %>
-  <br>
-  <%= link_to "削除", public_voice_post_path(voice_post), method: :delete %>
-<% end %>
-
-<%
-=begin
-%>
-
-<br>
-<% @tag_list.each do |list| %>
-<%= list.name %>
-<%= "(#{list.voice_post.count})" %>
-<% end %>
-
-<% @voice_posts_page.each do |post| %>
-<i class = "fas fa-tag"><%= post.tags.map(&:name).join(',') %></i>
-<% end %>
-<%
-=end
-%>
-
-<br>
-<%= link_to "new", new_public_voice_post_path %>
-<br>
-<%= link_to "search", search_public_customers_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <div>user info</div>
+      <div>user image: </div>
+      <div>user name: <%= @customers.name %></div>
+      <div>user follows count</div>
+      <div>user follower count</div>
+    </div>
+    <table class="col-8">
+      <thead>
+        <tr align="center">
+          <th colspan="6"><i class="far fa-clock"></i><%= @customers.name %>さんの投稿一覧</th>
+        </tr>
+      </thead>
+       <tbody>
+          <tr class = "text-center">
+            <td class = "col">title</td>
+            <td class = "col">image</td>
+            <td class = "col">#tag</td>
+            <td class = "col">audio</td>
+            <td class = "col">good</td>
+            <td class = "col">comment</td>
+           </tr>
+          <% @voice_posts.each do |voice_post| %>
+          <tr class = "text-center">
+            <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>
+            <td></td>
+            <td><%= render_with_hashtags(voice_post.category) %></td>
+            <td>
+              <% if voice_post.voice.attached? %>
+                <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
+              <% else %>
+                ないよ
+              <% end %>
+            </td>
+            <td>♡<%= voice_post.favorites.count %></td>
+            <td><%= voice_post.comment_posts.count %></td>
+            <td><%= link_to "削除", public_voice_post_path(voice_post), method: :delete %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>

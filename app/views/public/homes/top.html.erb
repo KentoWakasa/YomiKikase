@@ -1,10 +1,37 @@
-<h1>timeline</h1>
-<% @voice_posts.each do |voice_post| %>
- <p>title:<%= link_to voice_post.title, public_voice_post_path(voice_post) %></p>
-  <p>introduction:<%= voice_post.introduction %></p>
-     <% if voice_post.voice.attached? %>
-    <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
-  <% else %>
-    ないよ
-  <% end %>
-  <% end %>
+<div class="container">
+  <div class="row">
+     <table class="col">
+        <thead>
+          <tr align="center">
+            <th colspan="6"><i class="far fa-clock"></i>timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class = "text-center">
+            <td class = "col-2">title</td>
+            <td class = "col-2">image</td>
+            <td class = "col-2">#tag</td>
+            <td class = "col-2">audio</td>
+            <td class = "col-2">good</td>
+            <td class = "col-2">comment</td>
+          </tr>
+          <% @voice_posts.each do |voice_post| %>
+          <tr class = "text-center">
+            <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>
+            <td></td>
+            <td></td>
+            <td>
+              <% if voice_post.voice.attached? %>
+                <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
+              <% else %>
+                ないよ
+              <% end %>
+            </td>
+            <td>♡<%= voice_post.favorites.count %></td>
+            <td><%= voice_post.comment_posts.count %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
