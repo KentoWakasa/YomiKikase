@@ -9,14 +9,15 @@ class Public::VoicePostsController < ApplicationController
     @voice_posts.voice = params[:voice_post][:voice]
     @voice_posts.customer_id = current_customer.id
     if @voice_posts.save
-    redirect_to public_voice_posts_path
+    redirect_to root_path
     else
     render :new
     end
   end
 
   def index
-    @customers = Customer.find(params[:id]) #user infoのuser nameから受け取る
+   @voice_post = VoicePost.find(params[:id])
+    @customers = @voice_post.customer #user infoのuser nameから受け取る
     @voice_posts = @customers.voice_posts
   end
 
@@ -31,10 +32,14 @@ class Public::VoicePostsController < ApplicationController
   def destroy
     @voice_posts = VoicePost.find(params[:id])
     @voice_posts.destroy
-    redirect_to public_voice_posts_path
+    redirect_to root_path
   end
+  
+  
+ 
 
   def hashtag
+  
     @customer = current_customer
     if params[:name].nil?
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_post.count}
@@ -50,7 +55,7 @@ class Public::VoicePostsController < ApplicationController
   private
 
   def voice_posts_params
-    params.require(:voice_post).permit(:title, :introduction, :voice, :category, hashtag_ids: [])
+    params.require(:voice_post).permit(:title, :introduction, :image, :voice, :category, hashtag_ids: [])
   end
 
 end

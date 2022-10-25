@@ -1,11 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <div>user info</div>
-      <div>user image: </div>
-      <div>user name: <%=link_to @voice_posts.customer.name, {controller: 'voice_posts', action: 'index', id: @voice_posts.customer.id} %></div>
-      <div>user follows count</div>
-      <div>user follower count</div>
+      <%= render "customers", voice_post: @voice_posts%>
                 <tr>
             <td>
             <%= form_with model: [@voice_posts, @comment_posts], url: public_voice_post_comment_posts_path(@voice_posts.id), method: :post do |f| %>
@@ -68,9 +64,7 @@
             <td><%= link_to "削除", public_voice_post_path(@voice_posts), method: :delete %></td>
           </tr>
 
-<%
-=begin
-%>
+
           <tr>
             <td>
             <% @voice_posts.comment_posts.each do |comment_post| %>
@@ -79,6 +73,10 @@
             <% end %>
             </td>
           </tr>
+
+<%
+=begin
+%>
 <%
 =end
 %>

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class = "col">
+      <table>
+        <thead>
+          <tr align="center">
+            <th colspan="5"><i class="far fa-clock"></i>会員一覧</th>
+          </tr>
+        </thead>
+         <tbody>
+            <tr class = "text-center">
+              <td class = "col-2">name</td>
+              <td class = "col-2">image</td>
+              <td class = "col-2">email</td>
+              <td class = "col-2">status</td>
+             </tr>
+            <% @customers.each do |customers| %>
+            <tr class = "text-center">
+              <td><%= link_to customers.name, edit_admin_customer_path(customers) %></td>
+              <td><%#= image_tag customers.image, size:"10×10" %></td>
+              <td><%= customers.email %></td>
+              <td><% if customers.is_deleted == false %>
+                    会員
+                  <% else %>
+                    退会
+                  <% end %>
+              </td>
+              <td><%= link_to "削除", admin_customer_path(customers), method: :delete %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

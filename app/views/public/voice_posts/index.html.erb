@@ -1,16 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <div>user info</div>
-      <div>user image: </div>
-      <div>user name: <%= @customers.name %></div>
-      <div>user follows count</div>
-      <div>user follower count</div>
+      <%= render "customers", voice_post: @voice_post%>
     </div>
     <table class="col-8">
       <thead>
         <tr align="center">
-          <th colspan="6"><i class="far fa-clock"></i><%= @customers.name %>さんの投稿一覧</th>
+          <th colspan="6"><i class="far fa-clock"></i><%#= @customers.name %>さんの投稿一覧</th>
         </tr>
       </thead>
        <tbody>
