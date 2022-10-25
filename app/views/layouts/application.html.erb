@@ -12,70 +12,62 @@
 
   <body>
     <nav class="navbar justify-content-center bg-transparent">
-       <div class="container-fluid justify-content-center">
+      <div class="container-fluid justify-content-center">
          <%= link_to root_path  do %>
           <%= image_tag 'Logo.png', size: '150x120' %>
          <% end %>
-    </div>
-    <div class="container-fluid justify-content-center">
-    <% if customer_signed_in? %>
+      </div>
+      <div class="container-fluid justify-content-center">
+        <!--管理側と顧客側でヘッダーのリンクを分岐-->
+        <% if request.path&.include?('/admin/') %>
+          <% if admin_signed_in? %>
+            <%= link_to "sign out", destroy_admin_session_path, method: :delete, class:"Editlink" %>
+          <% else %>
+            <div class="col texit-white">
+              <%= link_to "log in", new_admin_session_path, class:"Editlink" %>
+            </div>
+          <% end %>
+        <% else %>
+          <% if customer_signed_in? %>
+            <div class="col texit-white">
+              <%= link_to "my page", {controller: 'voice_posts', action: 'index', id: current_customer.id}, class:"Editlink" %>
+            </div>
+            <div class="col">
+              <%= link_to "new", new_public_voice_post_path, class:"Editlink" %>
+            </div>
+            <div class="col">
+              <%= link_to "search", search_public_customers_path, class:"Editlink" %>
+            </div>
+             <div class="col text-center">
+              <%= link_to "log out", destroy_customer_session_path, method: :delete, class:"Editlink" %>
+            </div>
+          <% else %>
+            <div class="col texit-white">
+              <%= link_to "sign up", new_customer_registration_path, class:"Editlink" %>
+            </div>
+            <div class="col">
+              <%= link_to "log in", new_customer_session_path, class:"Editlink" %>
+            </div>
+            <div class="col">
+              <%= link_to 'guest log in', public_guest_sign_in_path, method: :post, class:"Editlink" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </nav>
+
+
 
 <%
 =begin
 %>
-      <table>
-        <tr>
-      <th>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </th>
-      <th>
-        <%= link_to "top", root_path %>
-      </th>
-      <th>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </th>
-      <th>
-        <%= link_to "top", root_path %>
-      </th>
-      </tr>
-      </table>
 <%
 =end
 %>
 
-      <div class="col texit-white">
-        <%= link_to "my page", {controller: 'voice_posts', action: 'index', id: current_customer.id}, class:"Editlink" %>
-      </div>
-      <div class="col">
-        <%= link_to "new", new_public_voice_post_path %>
-      </div>
-      <div class="col">
-        <%= link_to "search", search_public_customers_path %>
-      </div>
-       <div class="col text-center">
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </div>
 
-    <% else %>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <%= link_to "新規登録", new_customer_registration_path %>
-      <li class="nav-item">
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-       <li >
-        <%= link_to 'ゲストログイン（閲覧用）', public_guest_sign_in_path, method: :post %>
-      </li>
-      </ul>
-    <% end %>
-    </div>
-    </div>
-    </div>
-
-    </nav>
     <div class = "partbody">
-    <%= yield %>
+      <%= yield %>
     </div>
   </body>
 </html>

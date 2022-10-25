@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :customers
+    # get 'customers/index'
+    # get 'customers/show'
+    # get 'customers/edit'
+  end
   devise_scope :customer do
     post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
@@ -13,8 +19,9 @@ Rails.application.routes.draw do
       resources :comment_posts
     end
 
-    get '/voice_posts/hashtag/:name', to: "voice_posts#hashtag"
-    get '/voice_posts/hashtag' => 'voice_posts#hashtag'
+    get '/voice_posts/hashtag/:name' => "voice_posts#hashtag", as: "hashtag"
+
+
 
 
 
@@ -22,7 +29,7 @@ Rails.application.routes.draw do
 
     resources :customers do
       resource :relationships
-      get 'followings' => 'registrations#followings', as: 'followings'
+      get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
       get :search, on: :collection
     end

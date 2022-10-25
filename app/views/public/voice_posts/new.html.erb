@@ -17,9 +17,9 @@
           <%= form_with model: @voice_posts, url: public_voice_posts_path, metdod: :post do |f| %>
             <tr><td>title</td><td><%= f.text_field :title %></td></tr>
             <tr><td>introduction</td><td><%= f.text_field :introduction %></td></tr>
-            <tr><td>image</tr>
-            <tr><td>audio</td><td><%= f.file_field :voice %></tr>
-            <tr><td>#tag</td><td><%= f.text_field :category %></tr>
+            <tr><td>image</td><td><%= f.file_field :image, accept: "image/*" %></td></tr>
+            <tr><td>audio</td><td><%= f.file_field :voice %></td></tr>
+            <tr><td>#tag</td><td><%= f.text_field :category %></td></tr>
             <tr><td><%= f.submit '投稿' %></td></tr>
            <% end %>
         </tbody>

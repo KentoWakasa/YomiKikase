@@ -16,8 +16,10 @@
 
 <div class= "hashtag-name">
   <% @hashtags.sort.reverse.each do |count| %>
-      <% count[1].each do |hashtag| %>
-      <p><%= link_to  "##{hashtag.hashname} (#{hashtag.voice_posts.count}) 件","/voice_post/hashtag/#{hashtag.hashname}",data: {"turbolinks" => false} %>
-      </p>
+    <% count[1].each do |hashtag| %>
+      <% if hashtag.voice_posts.count > 0 %>
+        <p><%= link_to  hash_name(hashtag), public_hashtag_path(hashtag.hashname) %></p>
       <% end %>
+    <% end %>
   <% end %>
+</div>

@@ -2,20 +2,8 @@
 
 
 <div>user image: </div>
-<div>user name: <%=link_to voice_posts.customer.name, {controller: 'voice_posts', action: 'index', id: voice_posts.customer.id} %></div>
-<div>user follows count</div>
-<div>user follower count</div>
-
-<%
-=begin
- %>
-
-<%
-=end
- %>
-
-<div>user image: </div>
-<div>user name: <%= @customers.name %></div>
-<div>user follows count</div>
-<div>user follower count</div>
+<div>user name: <%=link_to voice_post.customer.name, {controller: 'voice_posts', action: 'index', id: voice_post} %></div>
+<div>user followings count: <%= link_to voice_post.customer.followings.count, public_customer_followings_path(voice_post.customer.id)  %></div>
+<div>user follower count: <%=link_to voice_post.customer.followers.count, public_customer_followers_path(voice_post.customer.id) %></div>
+<div><%= link_to "Edit", edit_public_voice_post_path(voice_post.customer.id) %></div>
 
