@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       end
     end
 
+  # get 'homes/top/sort/new', to: 'homes#top', as: 'sort_new'
 
 end
 

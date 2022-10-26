@@ -8,5 +8,14 @@ class Public::HomesController < ApplicationController
     # end
   end
 
+# def scope
+#   scope :latest, ->{order(created_at: "ASC")}
+# end
+
+
+#   if params[new]
+#     @voice_posts = VoicePost.latest(20)
+#   else
+#   end
 
 end
