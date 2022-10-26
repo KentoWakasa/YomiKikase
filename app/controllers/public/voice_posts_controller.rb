@@ -16,13 +16,16 @@ class Public::VoicePostsController < ApplicationController
   end
 
   def index
-   @voice_post = VoicePost.find(params[:id])
-    @customers = @voice_post.customer #user infoのuser nameから受け取る
-    @voice_posts = @customers.voice_posts
+    @voice_post = Customer.find(params[:id])
+
+    # @voice_post = VoicePost.find(params[:id])
+    # @customers = @voice_post.customer #user infoのuser nameから受け取る
+    @voice_posts = @voice_post.voice_posts
   end
 
   def show
     @voice_posts = VoicePost.find(params[:id])
+    @voice_post = @voice_posts.customer
     @comment_posts = CommentPost.new
     # @customers = VoicePost.customers
     # @customer = Customer.find(params[:id])
@@ -34,12 +37,20 @@ class Public::VoicePostsController < ApplicationController
     @voice_posts.destroy
     redirect_to root_path
   end
-  
-  
- 
+
+  def edit
+   @voice_post = VoicePost.find(params[:id])
+  end
+
+  def update
+    voice_post = VoicePost.find(params[:id])
+    voice_post.update(voice_posts_params)
+    redirect_to public_voice_post_path(voice_post.id)
+  end
+
 
   def hashtag
-  
+
     @customer = current_customer
     if params[:name].nil?
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_post.count}

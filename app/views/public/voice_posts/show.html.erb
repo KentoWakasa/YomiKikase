@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <%= render "customers", voice_post: @voice_posts%>
+      <%= render "customers", voice_post: @voice_post %>
                 <tr>
             <td>
             <%= form_with model: [@voice_posts, @comment_posts], url: public_voice_post_comment_posts_path(@voice_posts.id), method: :post do |f| %>
@@ -12,6 +12,7 @@
           </tr>
                   <tr>
             <td>
+              <% if customer_signed_in? %>
               <% if @voice_posts.favorited_by?(current_customer) %>
                 <%= link_to public_voice_post_favorites_path(@voice_posts), method: :delete do %>
                   good ♥<%= @voice_posts.favorites.count %>
@@ -21,6 +22,7 @@
                   good ♡<%= @voice_posts.favorites.count %>
                 <% end %>
               <% end %>
+
               </td>
           </tr>
           <tr>
@@ -30,6 +32,8 @@
             <% else %>
               <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
             <% end %>
+            <% else %>
+              <% end %>
             </td>
           </tr>
     </div>
@@ -61,7 +65,7 @@
             </td>
             <td>♡<%= @voice_posts.favorites.count %></td>
             <td><%= @voice_posts.comment_posts.count %></td>
-            <td><%= link_to "削除", public_voice_post_path(@voice_posts), method: :delete %></td>
+            <td><%= link_to "edit", edit_public_voice_post_path(@voice_posts) %></td>
           </tr>
 
 

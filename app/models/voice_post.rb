@@ -22,14 +22,16 @@ class VoicePost < ApplicationRecord
   before_update do
     voice_post = VoicePost.find_by(id: id)
     voice_post.hashtags.clear
-    hashtags = hashbody.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    hashtags = category.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
     hashtags.uniq.map do |hashtag|
       tag = Hashtag.find_or_create_by(hashname: hashtag.downcase.delete('#'))
       voice_post.hashtags << tag
     end
   end
 
+
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer.id)
   end
+
 end

@@ -1,0 +1,9 @@
+<h1>投稿編集</h1>
+<%= form_with model: @voice_post, url: public_voice_post_path(@voice_post), method: :patch do |f| %>
+            <tr><td>title</td><td><%= f.text_field :title %></td></tr>
+            <tr><td>introduction</td><td><%= f.text_field :introduction %></td></tr>
+            <tr><td>image</td><td><%= f.file_field :image, accept: "image/*" %></td></tr>
+            <tr><td>audio</td><td><%= f.file_field :voice %></td></tr>
+            <tr><td>#tag</td><td><%= f.text_field :category %></td></tr>
+<div><%= f.submit 'update' %></div>
+<% end %>
