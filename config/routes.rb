@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
+  root to: 'public/homes#top'
+
+
   namespace :admin do
     resources :customers
-    # get 'customers/index'
-    # get 'customers/show'
-    # get 'customers/edit'
   end
 
 
@@ -15,23 +15,23 @@ Rails.application.routes.draw do
       resources :comment_posts
     end
 
-    get '/voice_posts/hashtag/:name' => "voice_posts#hashtag", as: "hashtag"
-
     resources :customers do
       resource :relationships
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
       collection do
-      get 'search'
+        get 'search'
       end
     end
 
-  # get 'homes/top/sort/new', to: 'homes#top', as: 'sort_new'
+    get 'homes/top/sort/new', to: 'homes#top', as: 'sort_new'
+    get 'homes/top/sort/favorites', to: 'homes#top', as: 'sort_favorites'
 
-end
 
-  root to: 'public/homes#top'
-  # post 'public/sessions/guest_sign_in', to: 'public/sessions#guest_sign_in'
+
+    get '/voice_posts/hashtag/:name' => "voice_posts#hashtag", as: "hashtag"
+
+  end
 
 
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
@@ -46,6 +46,6 @@ end
   devise_scope :customer do
     post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
 
 end

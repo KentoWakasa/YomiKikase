@@ -9,27 +9,22 @@ class Public::VoicePostsController < ApplicationController
     @voice_posts.voice = params[:voice_post][:voice]
     @voice_posts.customer_id = current_customer.id
     if @voice_posts.save
-    redirect_to root_path
+      redirect_to root_path
     else
-    render :new
+      render :new
     end
   end
 
   def index
-    @voice_post = Customer.find(params[:id])
-
-    # @voice_post = VoicePost.find(params[:id])
-    # @customers = @voice_post.customer #user infoのuser nameから受け取る
+    @voice_post = Customer.find(params[:id])  #user infoから受け取る
     @voice_posts = @voice_post.voice_posts
   end
 
   def show
     @voice_posts = VoicePost.find(params[:id])
-    @voice_post = @voice_posts.customer
+    @voice_posts_customer = @voice_posts.customer #user infoで使用
     @comment_posts = CommentPost.new
-    # @customers = VoicePost.customers
-    # @customer = Customer.find(params[:id])
-    # @post_tag = @post.tags
+    @comment = @voice_posts.comment_posts.page(params[:page]) #コメントのページネーション用
   end
 
   def destroy
@@ -50,7 +45,6 @@ class Public::VoicePostsController < ApplicationController
 
 
   def hashtag
-
     @customer = current_customer
     if params[:name].nil?
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_post.count}
@@ -61,6 +55,7 @@ class Public::VoicePostsController < ApplicationController
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_posts.count}
     end
   end
+
 
 
   private
