@@ -1,18 +1,21 @@
 <div class="container">
   <div class="row">
     <div class = "col">
-     <table>
+     <table width = "100%">
         <thead>
           <tr align="center">
-            <th colspan="6"><i class="far fa-clock"></i>timeline</th>
+            <th colspan="6"><i class="far fa-clock"></i><font size=6px>timeline</th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_sort_new_path(new: 'true') %>    |   <%= link_to 'good', public_sort_favorites_path(favorites: 'true') %></td>
+          </tr>
           <tr class = "text-center">
-            <td class = "col-2">title</td>
+            <td class = "col-2",width="200">title</td>
             <td class = "col-2">image</td>
             <td class = "col-2">#tag</td>
-            <td class = "col-2">audio</td>
+            <td class = "col-2",colspan="6">introduction</td>
             <td class = "col-2">good</td>
             <td class = "col-2">comment</td>
           </tr>
@@ -21,26 +24,22 @@
             <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>
             <td>
               <% if voice_post.image.attached? %>
-                <%= image_tag voice_post.image, size: '150x120' %>
+                <%= image_tag voice_post.image, size: '100x100' %>
               <% else %>
                 <%= image_tag 'no_image.png', size: '100x100' %>
               <% end %>
               </td>
             <td><%= render_with_hashtags(voice_post.category) %></td>
-            <td>
-              <% if voice_post.voice.attached? %>
-                <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
-              <% else %>
-                ないよ
-              <% end %>
-            </td>
+            <td><%= voice_post.introduction %></td>
             <td>♡<%= voice_post.favorites.count %></td>
             <td><%= voice_post.comment_posts.count %></td>
           </tr>
           <% end %>
+          <tr>
+            <td colspan="6" class = "text-center"><%= paginate @voice_posts %></td>
+          </tr>
         </tbody>
       </table>
-      <!--<div>並び順<%#= link_to '新着', public_sort_new_path(new: 'true'), {class: 'sort-link' "#{'active' if current_page?('public/homes/top?new=true')}"} %></div>-->
     </div>
   </div>
 </div>

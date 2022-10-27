@@ -1,21 +1,14 @@
 class Public::HomesController < ApplicationController
 
   def top
-    # if customer_signed_in?
-    #   @voice_posts = VoicePost.where(customer_id: [current_customer.id, *current_customer.following_ids])
-    # else
-      @voice_posts = VoicePost.all.order(created_at: "ASC")
-    # end
+    #新着とgood数順
+    if params[:favorites]
+        @voice_posts = VoicePost.left_joins(:favorites).group(:id).order('count(favorites.voice_post_id) desc').page(params[:page])
+    elsif params[:new]
+      @voice_posts = VoicePost.all.order(created_at: "ASC").page(params[:page])
+    else
+      @voice_posts = VoicePost.all.order(created_at: "ASC").page(params[:page])
+    end
   end
-
-# def scope
-#   scope :latest, ->{order(created_at: "ASC")}
-# end
-
-
-#   if params[new]
-#     @voice_posts = VoicePost.latest(20)
-#   else
-#   end
 
 end

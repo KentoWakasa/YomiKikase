@@ -34,7 +34,8 @@
               <%= link_to "my page", {controller: 'voice_posts', action: 'index', id: current_customer.id}, class:"Editlink" %>
             </div>
             <div class="col">
-              <%= link_to "new", new_public_voice_post_path, class:"Editlink" %>
+              <%#= link_to "新規投稿", new_meal_path, class:'hoge',data: {"turbolinks"=>false} %>
+              <%= link_to "new", new_public_voice_post_path, class:"Editlink", data: {"turbolinks"=>false} %>
             </div>
             <div class="col">
               <%= link_to "search", search_public_customers_path, class:"Editlink" %>

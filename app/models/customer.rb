@@ -16,6 +16,14 @@ class Customer < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
+  def get_image
+    if image.attached?
+      image
+    else
+      'no_image.png'
+    end
+  end
+
   def follow(customer_id)
     relationships.create(followed_id: customer_id)
   end
