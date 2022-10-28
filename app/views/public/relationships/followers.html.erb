@@ -1,4 +1,29 @@
-<h1>Public::Relationships#followers</h1>
-<% @followers.each do |followers| %>
-<%= followers.name %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class = "col">
+      <table width = "100%">
+        <thead>
+          <tr align="center">
+            <th colspan="4"><i class="far fa-clock"></i>followers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class = "text-center">
+            <td class = "col-2">name</td>
+            <td class = "col-2">image</td>
+            <td class = "col-2">followings</td>
+            <td class = "col-2">followers</td>
+           </tr>
+          <% @followers.each do |customer| %>
+          <tr class = "text-center">
+            <td><%= link_to customer.name, public_voice_post_path(customer) %></td>
+            <td><%= image_tag customer.get_image, size: '100x100' %></td>
+            <td><%= link_to customer.followings.count, public_customer_followings_path(customer.id)  %></td>
+            <td><%==link_to customer.followers.count, public_customer_followers_path(customer.id) %></td>
+          </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

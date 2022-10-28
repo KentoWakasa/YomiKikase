@@ -1,41 +1,43 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <%= render "customers", customers: @voice_post %>
+      <%= render "customers", customers: @customers %>
     </div>
-    <table class="col-8">
+    <div class = "col-8">
+    <table width = "100%">
       <thead>
         <tr align="center">
-          <th colspan="6"><i class="far fa-clock"></i><%#= @customers.name %>さんの投稿一覧</th>
+          <th colspan="6"><i class="fas fa-list"></i><font size=6px><%= @customers.name %>さんの投稿一覧</th>
         </tr>
       </thead>
        <tbody>
+          <tr>
+            <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_voice_posts_index_sort_new_path(new: 'true') %>    |   <%= link_to 'good', public_voice_posts_index_sort_favorites_path(favorites: 'true') %></td>
+          </tr>
           <tr class = "text-center">
-            <td class = "col">title</td>
-            <td class = "col">image</td>
-            <td class = "col">#tag</td>
-            <td class = "col">audio</td>
-            <td class = "col">good</td>
-            <td class = "col">comment</td>
+            <td>title</td>
+            <td>image</td>
+            <td>#tag</td>
+            <td>introduction</td>
+            <td>good</td>
+            <td>comment</td>
            </tr>
           <% @voice_posts.each do |voice_post| %>
           <tr class = "text-center">
             <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>
-            <td></td>
+            <td><%= image_tag voice_post.get_image, size: '100x100' %></td>
             <td><%= render_with_hashtags(voice_post.category) %></td>
-            <td>
-              <% if voice_post.voice.attached? %>
-                <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
-              <% else %>
-                ないよ
-              <% end %>
-            </td>
-            <td>♡<%= voice_post.favorites.count %></td>
+            <td><%= voice_post.introduction %></td>
+            <td>♥<%= voice_post.favorites.count %></td>
             <td><%= voice_post.comment_posts.count %></td>
             <td><%= link_to "削除", public_voice_post_path(voice_post), method: :delete %></td>
           </tr>
           <% end %>
+          <tr>
+            <td colspan="6" class = "text-center"><%= paginate @voice_posts %></td>
+          </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>

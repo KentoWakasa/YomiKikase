@@ -1,20 +1,37 @@
-<h1>Customer search</h1>
-<%= form_with url: search_public_customers_path, method: :get, local: true do |f| %>
-  <%= f.text_field :name %>
-  <%= f.submit :search %>
-<% end %>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-</table>
-<tbody>
-  <% @customers.each do |customer| %>
-  <tr>
-    <td><%= customer.name %></td>
-  </tr>
-  <% end %>
-</tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class = "col">
+      <table width = "100%">
+        <thead>
+          <tr align="center">
+            <th colspan="4"><i class="far fa-clock"></i>user search</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4", class = "text-center">
+              <%= form_with url: search_public_customers_path, method: :get, local: true do |f| %>
+              <%= f.text_field :name %>
+              <%= f.submit :search %>
+              <% end %>
+            </td>
+          </tr>
+          <tr class = "text-center">
+            <td class = "col-2">name</td>
+            <td class = "col-2">image</td>
+            <td class = "col-2">followings</td>
+            <td class = "col-2">followers</td>
+           </tr>
+          <% @customers.each do |customers| %>
+          <tr class = "text-center">
+            <td><%= link_to customers.name, edit_admin_customer_path(customers) %></td>
+            <td><%= image_tag customers.get_image, size: '100x100' %></td>
+            <td><%= link_to customers.followings.count, public_customer_followings_path(customers.id)  %></td>
+            <td><%=link_to customers.followers.count, public_customer_followers_path(customers.id) %></td>
+          </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,22 @@
-<h1>投稿編集</h1>
-<%= form_with model: @voice_post, url: public_voice_post_path(@voice_post), method: :patch do |f| %>
-            <tr><td>title</td><td><%= f.text_field :title %></td></tr>
-            <tr><td>introduction</td><td><%= f.text_field :introduction %></td></tr>
-            <tr><td>image</td><td><%= f.file_field :image, accept: "image/*" %></td></tr>
-            <tr><td>audio</td><td><%= f.file_field :voice %></td></tr>
-            <tr><td>#tag</td><td><%= f.text_field :category %></td></tr>
-<div><%= f.submit 'update' %></div>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <table class = "newtable" width = "100%">
+      <thead>
+        <tr align="center">
+          <td colspan="2"><i class="fas fa-list"></i><font size=6px>投稿編集</td>
+        </tr>
+      </thead>
+       <tbody>
+          <%= form_with model: @voice_post, url: public_voice_post_path(@voice_post), method: :patch do |f| %>
+            <tr><td class = "text-right", width = "50%">title</td><td class = "text-left"><%= f.text_field :title %></td></tr>
+            <tr><td class = "text-right">introduction</td><td class = "text-left"><%= f.text_field :introduction %></td></tr>
+            <tr><td class = "text-right">image</td><td class = "text-left"><%= f.file_field :image, accept: "image/*" %></td></tr>
+            <tr><td class = "text-right">audio</td><td class = "text-left"><%= f.file_field :voice %></td></tr>
+            <tr><td class = "text-right">#tag</td><td class = "text-left"><%= f.text_field :category %></td></tr>
+            <tr><td class = "text-center", colspan="2"><%= f.submit 'update' %></td></tr>
+           <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>

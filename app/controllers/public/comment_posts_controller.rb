@@ -8,6 +8,11 @@ class Public::CommentPostsController < ApplicationController
     redirect_to public_voice_post_path(voice_post)
   end
 
+  def destroy
+    CommentPost.find(params[:id]).destroy
+    redirect_to request.referer
+  end
+
   private
 
   def comment_post_params

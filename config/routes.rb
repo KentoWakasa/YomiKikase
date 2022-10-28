@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
     get 'homes/top/sort/new', to: 'homes#top', as: 'sort_new'
     get 'homes/top/sort/favorites', to: 'homes#top', as: 'sort_favorites'
+    get 'voice_posts/index/sort/new', to: 'voice_posts#index'
+    get 'voice_posts/index/sort/favorites', to: 'voice_posts#index'
 
 
 

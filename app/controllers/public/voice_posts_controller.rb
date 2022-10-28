@@ -16,8 +16,17 @@ class Public::VoicePostsController < ApplicationController
   end
 
   def index
-    @voice_post = Customer.find(params[:id])  #user infoから受け取る
-    @voice_posts = @voice_post.voice_posts
+      # if params[:customer_id]
+        # @customers = Customer.find(params[:id])#user infoから受け取る
+        # @voice_posts = @customers.voice_posts.all.order(created_at: "desc").page(params[:page])
+      if params[:favorites]
+       @voice_posts = @customers.voice_posts.left_joins(:favorites).group(:id).order('count(favorites.voice_post_id) desc').page(params[:page])
+      elsif params[:new]
+        @voice_posts = @customers.voice_posts.all.order(created_at: "desc").page(params[:page])
+      else
+        @customers = Customer.find(params[:id])#user infoから受け取る
+        @voice_posts = @customers.voice_posts.all.order(created_at: "desc").page(params[:page])
+      end
   end
 
   def show
@@ -30,7 +39,7 @@ class Public::VoicePostsController < ApplicationController
   def destroy
     @voice_posts = VoicePost.find(params[:id])
     @voice_posts.destroy
-    redirect_to root_path
+    redirect_to request.referer
   end
 
   def edit
