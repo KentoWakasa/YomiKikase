@@ -12,26 +12,20 @@
             <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_sort_new_path(new: 'true') %>    |   <%= link_to 'good', public_sort_favorites_path(favorites: 'true') %></td>
           </tr>
           <tr class = "text-center">
-            <td class = "col-2",width="200">title</td>
-            <td class = "col-2">image</td>
-            <td class = "col-2">#tag</td>
-            <td class = "col-2",colspan="6">introduction</td>
-            <td class = "col-2">good</td>
-            <td class = "col-2">comment</td>
+            <td>title</td>
+            <td>image</td>
+            <td>#tag</td>
+            <td>introduction</td>
+            <td>good</td>
+            <td>comment</td>
           </tr>
           <% @voice_posts.each do |voice_post| %>
           <tr class = "text-center">
             <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>
-            <td>
-              <% if voice_post.image.attached? %>
-                <%= image_tag voice_post.image, size: '100x100' %>
-              <% else %>
-                <%= image_tag 'no_image.png', size: '100x100' %>
-              <% end %>
-              </td>
+            <td><%= image_tag voice_post.get_image, size: '100x100' %></td>
             <td><%= render_with_hashtags(voice_post.category) %></td>
             <td><%= voice_post.introduction %></td>
-            <td>♡<%= voice_post.favorites.count %></td>
+            <td>♥<%= voice_post.favorites.count %></td>
             <td><%= voice_post.comment_posts.count %></td>
           </tr>
           <% end %>

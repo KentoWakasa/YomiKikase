@@ -1,26 +1,20 @@
 <div class="container">
   <div class="row">
-    <div class="col-4">
-      <div>user info</div>
-      <div>user image: </div>
-      <div>user name: <%#= @customers.name %></div>
-      <div>user follows count</div>
-      <div>user follower count</div>
-    </div>
-    <table class="col-8">
+    <div class="col">
+    <table class = "newtable" width = "100%">
       <thead>
         <tr align="center">
-          <td colspan="6">投稿フォーム</td>
+          <td colspan="2"><i class="far fa-paper-plane"></i><font size=6px>投稿フォーム</td>
         </tr>
       </thead>
        <tbody>
           <%= form_with model: @voice_posts, url: public_voice_posts_path, metdod: :post do |f| %>
-            <tr><td>title</td><td><%= f.text_field :title %></td></tr>
-            <tr><td>introduction</td><td><%= f.text_field :introduction %></td></tr>
-            <tr><td>image</td><td><%= f.file_field :image, accept: "image/*" %></td></tr>
-            <tr><td>audio</td><td><%= f.file_field :voice %></td></tr>
-            <tr><td>#tag</td><td><%= f.text_field :category %></td></tr>
-            <tr><td><%= f.submit '投稿' %></td></tr>
+            <tr><td class = "text-right", width = "50%">title</td><td class = "text-left"><%= f.text_field :title %></td></tr>
+            <tr><td class = "text-right">introduction</td><td class = "text-left"><%= f.text_field :introduction %></td></tr>
+            <tr><td class = "text-right">image</td><td class = "text-left"><%= f.file_field :image, accept: "image/*" %></td></tr>
+            <tr><td class = "text-right">audio</td><td class = "text-left"><%= f.file_field :voice %></td></tr>
+            <tr><td class = "text-right">#tag</td><td class = "text-left"><%= f.text_field :category %></td></tr>
+            <tr><td class = "text-center",  colspan="2"><%= f.submit '投稿' %></td></tr>
            <% end %>
         </tbody>
       </table>

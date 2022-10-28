@@ -1,25 +1,58 @@
-<% if params[:name] == nil %>
-
-<% else %>
-    <% @voice_posts.each do |voice_post| %>
-     <p>title:<%= link_to voice_post.title, public_voice_post_path(voice_post) %></p>
-      <p>introduction:<%= voice_post.introduction %></p>
-         <% if voice_post.voice.attached? %>
-        <audio src="<%= rails_storage_redirect_path(voice_post.voice) %>" controls=""></audio>
-         <% else %>
-            ないよ
-         <% end %>
-    <% end %>
-  <% end %>
-
-
-
-<div class= "hashtag-name">
-  <% @hashtags.sort.reverse.each do |count| %>
-    <% count[1].each do |hashtag| %>
-      <% if hashtag.voice_posts.count > 0 %>
-        <p><%= link_to  hash_name(hashtag), public_hashtag_path(hashtag.hashname) %></p>
-      <% end %>
-    <% end %>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <div class = "col-4">
+      <table>
+        <thead>
+          <tr>
+            <th><i class="fas fa-tags"></i><font size=6px>#tags</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hashtags.sort.reverse.each do |count| %>
+            <% count[1].each do |hashtag| %>
+              <% if hashtag.voice_posts.count > 0 %>
+                <tr>
+                  <td>
+                    <%= link_to  hash_name(hashtag), public_hashtag_path(hashtag.hashname) %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class = "col-6">
+     <table width = "100%">
+        <thead>
+          <tr align="center">
+            <th colspan="6"><i class="fas fa-tag"></i><font size=6px>#<%= @hashtag.hashname %></th>
+          </tr>
+        </thead>
+        <% if params[:name] == nil %>
+        <% else %>
+        <tbody>
+          <tr class = "text-center">
+            <td>title</td>
+            <td>image</td>
+            <td>#tag</td>
+            <td>introduction</td>
+            <td>good</td>
+            <td>comment</td>
+          </tr>
+          <% @voice_posts.each do |voice_post| %>
+          <tr class = "text-center">
+            <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>
+            <td><%= image_tag voice_post.get_image, size: '100x100' %></td>
+            <td><%= render_with_hashtags(voice_post.category) %></td>
+            <td><%= voice_post.introduction %></td>
+            <td>♥<%= voice_post.favorites.count %></td>
+            <td><%= voice_post.comment_posts.count %></td>
+          </tr>
+          <% end %>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

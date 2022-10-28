@@ -17,7 +17,7 @@
             <% @customers.each do |customers| %>
             <tr class = "text-center">
               <td><%= link_to customers.name, edit_admin_customer_path(customers) %></td>
-              <td><%#= image_tag customers.image, size:"10×10" %></td>
+              <td><%= image_tag customers.get_image, size: '100x100' %></td>
               <td><%= customers.email %></td>
               <td><% if customers.is_deleted == false %>
                     会員

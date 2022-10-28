@@ -6,10 +6,13 @@
         <tbody>
           <tr>
             <td class = "comment_box">
+              <% if customer_signed_in? %>
               <% if current_customer.following?(@voice_posts.customer) %>
                 <%= link_to "フォロー外す", public_customer_relationships_path(@voice_posts.customer.id), method: :delete %>
               <% else %>
                 <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
+              <% end %>
+              <% else %>
               <% end %>
             </td>
           </tr>
@@ -36,15 +39,15 @@
           </tr>
         </thead>
          <tbody>
-           <tr>
-                <td colspan="6", class = "text-center">
+            <tr>
+              <td colspan="6", class = "adudio">
                 <% if @voice_posts.voice.attached? %>
                   <audio src="<%= rails_storage_redirect_path(@voice_posts.voice) %>" controls=""></audio>
                 <% else %>
                   ないよ
                 <% end %>
               </td>
-           </tr>
+            </tr>
             <tr class = "text-center">
               <td>title</td>
               <td>image</td>
@@ -71,24 +74,33 @@
                   <% end %>
                 <% else %>
                 <% end %>
-                </td>
+              </td>
               <td><%= @voice_posts.comment_posts.count %></td>
               <td><%= link_to "edit", edit_public_voice_post_path(@voice_posts) %></td>
             </tr>
           </tbody>
         </table>
-        <table>
+        <table class = "comment">
           <tbody>
+            <% @comment.each do |comment_post| %>
             <tr>
-              <td>
-                <% @comment.each do |comment_post| %>
-                  <%= comment_post.created_at.strftime('%Y/%m/%d') %><%= comment_post.comment %>
-                  <%= comment_post.customer.name %>
+              <td class = "comment_day">
+                <%= comment_post.created_at.strftime('%Y/%m/%d') %>
+                <%= link_to comment_post.customer.name, {controller: 'voice_posts', action: 'index', id: comment_post.id } %>
+                <% if comment_post.customer == current_customer %>
+                  <%= link_to "削除", public_voice_post_comment_post_path(comment_post.voice_post, comment_post), method: :delete %>
+                <% else %>
                 <% end %>
               </td>
             </tr>
             <tr>
-              <td><%= paginate @comment %></td>
+              <td>
+                  <%= comment_post.comment %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td  colspan="6" class = "paginate"><%= paginate @comment %></td>
             </tr>
           </tbody>
         </table>
