@@ -75,7 +75,7 @@
                 <% end %>
               </td>
               <td><%= @voice_posts.comment_posts.count %></td>
-              <% if customer_signed_in? %>
+              <% if current_customer == @voice_posts_customer.id %>
                 <td><%= link_to "edit", edit_public_voice_post_path(@voice_posts), data: {"turbolinks"=>false}  %></td>
               <% else %>
               <% end %>

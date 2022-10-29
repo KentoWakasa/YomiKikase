@@ -9,7 +9,7 @@
     <tr><td>name: <%=link_to customers.name, {controller: 'voice_posts', action: 'index', id: customers.id } %></td></tr>
     <tr><td>followings: <%= link_to customers.followings.count, public_customer_followings_path(customers.id)  %></td></tr>
     <tr><td>followers: <%=link_to customers.followers.count, public_customer_followers_path(customers.id) %></td></tr>
-    <% if customer_signed_in? %>
+    <% if current_customer == customers %>
       <tr><td><%= link_to "edit", edit_public_customer_path(customers.id), data: {"turbolinks"=>false}  %></td></tr>
     <% else %>
     <% end %>

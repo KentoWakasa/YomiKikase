@@ -30,7 +30,7 @@
             <td><%= voice_post.introduction %></td>
             <td>♥<%= voice_post.favorites.count %></td>
             <td><%= voice_post.comment_posts.count %></td>
-            <% if customer_signed_in? %>
+            <% if current_customer == @customers %>
               <td><%= link_to "削除", public_voice_post_path(voice_post), method: :delete %></td>
             <% else %>
             <% end %>
