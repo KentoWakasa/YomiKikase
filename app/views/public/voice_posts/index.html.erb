@@ -12,7 +12,7 @@
       </thead>
        <tbody>
           <tr>
-            <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_voice_posts_index_sort_new_path(new: 'true') %>    |   <%= link_to 'good', public_voice_posts_index_sort_favorites_path(favorites: 'true') %></td>
+            <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_voice_posts_index_sort_new_path(new: 'true') %>    |   <%= link_to 'good', public_voice_posts_index_sort_favorites_path(@customers.id,favorites: 'true') %></td>
           </tr>
           <tr class = "text-center">
             <td>title</td>
@@ -30,7 +30,10 @@
             <td><%= voice_post.introduction %></td>
             <td>♥<%= voice_post.favorites.count %></td>
             <td><%= voice_post.comment_posts.count %></td>
-            <td><%= link_to "削除", public_voice_post_path(voice_post), method: :delete %></td>
+            <% if customer_signed_in? %>
+              <td><%= link_to "削除", public_voice_post_path(voice_post), method: :delete %></td>
+            <% else %>
+            <% end %>
           </tr>
           <% end %>
           <tr>

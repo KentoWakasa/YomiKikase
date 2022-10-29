@@ -1,6 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <% if @voice_post.errors.any? %>
+      <div class = "col-4">
+        <%= @voice_post.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @voice_post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
     <table class = "newtable" width = "100%">
       <thead>
         <tr align="center">

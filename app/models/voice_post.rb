@@ -10,6 +10,12 @@ class VoicePost < ApplicationRecord
   has_many :hashtags, through: :hashtag_voice_posts
 
   belongs_to :customer
+  
+
+  validates :title, presence: true
+  validates :introduction, presence: true
+  validates :voice, presence: true
+  validates :category, presence: true, inclusion: { in: %w(#), message: "#をつけてください" }
 
 
   #imageの空白を防ぐ

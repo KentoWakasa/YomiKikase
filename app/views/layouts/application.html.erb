@@ -26,11 +26,11 @@
               <%= link_to "sign out", destroy_admin_session_path, method: :delete, class:"Editlink" %>
             </div>
             <div class="col texit-white">
-              <%= link_to "会員一覧", admin_customers_path, class:"Editlink" %>
+              <%= link_to "customer index", admin_customers_path, class:"Editlink" %>
             </div>
           <% else %>
             <div class="col texit-white">
-              <%= link_to "log in", new_admin_session_path, class:"Editlink" %>
+              <%= link_to "log in", new_admin_session_path, class:"Editlink" , data: {"turbolinks"=>false} %>
             </div>
           <% end %>
         <% else %>
@@ -49,10 +49,10 @@
             </div>
           <% else %>
             <div class="col texit-white">
-              <%= link_to "sign up", new_customer_registration_path, class:"Editlink" %>
+              <%= link_to "sign up", new_customer_registration_path, class:"Editlink", data: {"turbolinks"=>false}  %>
             </div>
             <div class="col">
-              <%= link_to "log in", new_customer_session_path, class:"Editlink" %>
+              <%= link_to "log in", new_customer_session_path, class:"Editlink", data: {"turbolinks"=>false}  %>
             </div>
             <div class="col">
               <%= link_to 'guest log in', public_guest_sign_in_path, method: :post, class:"Editlink" %>
