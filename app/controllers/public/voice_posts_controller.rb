@@ -20,8 +20,9 @@ class Public::VoicePostsController < ApplicationController
         # @customers = Customer.find(params[:id])#user infoから受け取る
         # @voice_posts = @customers.voice_posts.all.order(created_at: "desc").page(params[:page])
       if params[:favorites]
-       @voice_posts = @customers.voice_posts.left_joins(:favorites).group(:id).order('count(favorites.voice_post_id) desc').page(params[:page])
+        @voice_posts = @customers.voice_posts.left_joins(:favorites).group(:id).order('count(favorites.voice_post_id) desc').page(params[:page])
       elsif params[:new]
+        @customers = Customer.find(params[:id])
         @voice_posts = @customers.voice_posts.all.order(created_at: "desc").page(params[:page])
       else
         @customers = Customer.find(params[:id])#user infoから受け取る
@@ -47,9 +48,12 @@ class Public::VoicePostsController < ApplicationController
   end
 
   def update
-    voice_post = VoicePost.find(params[:id])
-    voice_post.update(voice_posts_params)
-    redirect_to public_voice_post_path(voice_post.id)
+    @voice_post = VoicePost.find(params[:id])
+    if @voice_post.update(voice_posts_params)
+      redirect_to public_voice_post_path(@voice_post.id)
+    else
+      render :edit
+    end
   end
 
 

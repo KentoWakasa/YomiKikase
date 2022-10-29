@@ -5,13 +5,16 @@ class Public::CustomersController < ApplicationController
   end
 
   def update
-    customers = Customer.find(params[:id])
-    customers.update(customer_params)
-    if customers.is_deleted == false
-      redirect_to public_voice_posts_path(controller: 'voice_posts', action: 'index', id: customers.id)
+    @customers = Customer.find(params[:id])
+    if @customers.update(customer_params)
+      if @customers.is_deleted == false
+        redirect_to public_voice_posts_path(controller: 'voice_posts', action: 'index', id: @customers.id)
+      else
+        reset_session
+        redirect_to root_path
+      end
     else
-      reset_session
-      redirect_to root_path
+      render :edit
     end
   end
 
