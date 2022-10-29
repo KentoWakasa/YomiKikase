@@ -44,7 +44,6 @@
                 <% if @voice_posts.voice.attached? %>
                   <audio src="<%= rails_storage_redirect_path(@voice_posts.voice) %>" controls=""></audio>
                 <% else %>
-                  ないよ
                 <% end %>
               </td>
             </tr>

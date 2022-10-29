@@ -12,7 +12,7 @@
       </thead>
        <tbody>
           <tr>
-            <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_voice_posts_index_sort_new_path(new: 'true') %>    |   <%= link_to 'good', public_voice_posts_index_sort_favorites_path(@customers.id,favorites: 'true') %></td>
+            <td class = "sort" colspan="6">sort :  <%= link_to 'new', public_voice_posts_index_sort_new_path(id: @customers.id, new: 'true') %>    |   <%= link_to 'good', public_voice_posts_index_sort_favorites_path(id: @customers.id,favorites: 'true') %></td>
           </tr>
           <tr class = "text-center">
             <td>title</td>

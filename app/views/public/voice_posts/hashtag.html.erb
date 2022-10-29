@@ -2,11 +2,13 @@
   <div class="row">
     <div class = "col-4">
       <table>
+
         <thead>
           <tr>
             <th><i class="fas fa-tags"></i><font size=6px>#tags</th>
           </tr>
         </thead>
+
         <tbody>
           <% @hashtags.sort.reverse.each do |count| %>
             <% count[1].each do |hashtag| %>
@@ -20,15 +22,19 @@
             <% end %>
           <% end %>
         </tbody>
+
       </table>
     </div>
+
     <div class = "col-6">
      <table width = "100%">
+
         <thead>
           <tr align="center">
             <th colspan="6"><i class="fas fa-tag"></i><font size=6px>#<%= @hashtag.hashname %></th>
           </tr>
         </thead>
+
         <% if params[:name] == nil %>
         <% else %>
         <tbody>
@@ -51,6 +57,7 @@
           </tr>
           <% end %>
         </tbody>
+
         <% end %>
       </table>
     </div>
