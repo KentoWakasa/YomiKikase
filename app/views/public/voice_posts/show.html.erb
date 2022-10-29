@@ -12,8 +12,6 @@
               <% else %>
                 <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
               <% end %>
-              <% else %>
-              <% end %>
             </td>
           </tr>
           <tr>
@@ -28,6 +26,8 @@
               <% end %>
             </td>
           </tr>
+              <% else %>
+              <% end %>
         </tbody>
       </table>
     </div>

@@ -21,7 +21,6 @@
           <%= form_with model: @customers, url: admin_customer_path, metdod: :patch do |f| %>
             <tr><td class = "text-right", width = "50%">name</td><td class = "text-left"><%= f.text_field :name %></td></tr>
             <tr><td class = "text-right">email</td><td class = "text-left"><%= f.text_area :email %></td></tr>
-            <tr><td class = "text-right">image</td><td class = "text-left"><%= f.file_field :image, accept: "image/*" %></td></tr>
             <tr><td class = "text-right"><%= f.label :is_deleted, "有効" %></td><td class = "text-left"><%= f.radio_button :is_deleted, false %></td></tr>
             <tr><td class = "text-right"><%= f.label :is_deleted, "退会" %></td><td class = "text-left"><%= f.radio_button :is_deleted, true %></td></tr>
             <tr><td class = "text-center",  colspan="2"><%= f.submit 'update' %></td></tr>

@@ -12,7 +12,7 @@ class Admin::CustomersController < ApplicationController
   def show
     #error後の更新時indexに移ってしまうため
     if params[:id]
-      redirect_to edit_public_customer_path
+      redirect_to edit_admin_customer_path
       return
     end
   end
