@@ -16,10 +16,12 @@ class Public::VoicePostsController < ApplicationController
   end
 
   def index
-      # if params[:customer_id]
-        # @customers = Customer.find(params[:id])#user infoから受け取る
-        # @voice_posts = @customers.voice_posts.all.order(created_at: "desc").page(params[:page])
+      if params[:id].blank? #error後の更新時indexに移ってしまうため
+        redirect_to new_public_voice_post_path
+        return
+      end
       if params[:favorites]
+        @customers = Customer.find(params[:id])
         @voice_posts = @customers.voice_posts.left_joins(:favorites).group(:id).order('count(favorites.voice_post_id) desc').page(params[:page])
       elsif params[:new]
         @customers = Customer.find(params[:id])

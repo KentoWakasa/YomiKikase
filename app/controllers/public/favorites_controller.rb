@@ -1,5 +1,5 @@
 class Public::FavoritesController < ApplicationController
-
+  
   def create
     voice_post = VoicePost.find(params[:voice_post_id])
     favorite = current_customer.favorites.new(voice_post_id: voice_post.id)

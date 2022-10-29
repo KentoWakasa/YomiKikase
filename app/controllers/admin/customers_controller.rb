@@ -9,6 +9,14 @@ class Admin::CustomersController < ApplicationController
     redirect_to admin_customers_path
   end
 
+  def show
+    #error後の更新時indexに移ってしまうため
+    if params[:id]
+      redirect_to edit_public_customer_path
+      return
+    end
+  end
+
   def edit
     @customers = Customer.find(params[:id])
   end
