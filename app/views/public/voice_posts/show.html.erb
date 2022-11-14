@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+
     <div class="col-4">
       <%= render "customers", customers: @voice_posts_customer %>
       <table>
@@ -7,11 +8,14 @@
           <tr>
             <td class = "comment_box">
               <% if customer_signed_in? %>
-              <% if current_customer.following?(@voice_posts.customer) %>
-                <%= link_to "フォロー外す", public_customer_relationships_path(@voice_posts.customer.id), method: :delete %>
-              <% else %>
-                <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
-              <% end %>
+                <% unless current_customer.id == @voice_posts_customer.id %>
+                  <% if current_customer.following?(@voice_posts.customer) %>
+                    <%= link_to "フォロー外す", public_customer_relationships_path(@voice_posts.customer.id), method: :delete %>
+                  <% else %>
+                    <%= link_to "フォローする", public_customer_relationships_path(@voice_posts.customer.id), method: :post %>
+                  <% end %>
+                <% else %>
+                <% end %>
             </td>
           </tr>
           <tr>
@@ -31,6 +35,8 @@
         </tbody>
       </table>
     </div>
+
+
     <div class = "col-8">
       <table height = "50%", width = "100%">
         <thead>
@@ -72,16 +78,18 @@
                     <% end %>
                   <% end %>
                 <% else %>
+                  ♥<%= @voice_posts.favorites.count %>
                 <% end %>
               </td>
               <td><%= @voice_posts.comment_posts.count %></td>
-              <% if current_customer == @voice_posts_customer.id %>
+              <% if current_customer.id == @voice_posts_customer.id %>
                 <td><%= link_to "edit", edit_public_voice_post_path(@voice_posts), data: {"turbolinks"=>false}  %></td>
               <% else %>
               <% end %>
             </tr>
           </tbody>
         </table>
+
         <table class = "comment">
           <tbody>
             <% @comment.each do |comment_post| %>
@@ -106,6 +114,7 @@
             </tr>
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
