@@ -82,9 +82,11 @@
                 <% end %>
               </td>
               <td><%= @voice_posts.comment_posts.count %></td>
-              <% if current_customer.id == @voice_posts_customer.id %>
-                <td><%= link_to "edit", edit_public_voice_post_path(@voice_posts), data: {"turbolinks"=>false}  %></td>
-              <% else %>
+              <% if customer_signed_in? %>
+                <% if current_customer.id == @voice_posts_customer.id %>
+                  <td><%= link_to "edit", edit_public_voice_post_path(@voice_posts), data: {"turbolinks"=>false}  %></td>
+                <% else %>
+                <% end %>
               <% end %>
             </tr>
           </tbody>
