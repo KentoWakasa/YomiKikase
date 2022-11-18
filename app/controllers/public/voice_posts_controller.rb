@@ -66,7 +66,6 @@ class Public::VoicePostsController < ApplicationController
     else
       @hashtag = Hashtag.find_by(hashname: params[:name])
       @voice_posts = @hashtag.voice_posts
-      # .page(params[:page]).per(20).reverse_order
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.voice_posts.count}
     end
   end

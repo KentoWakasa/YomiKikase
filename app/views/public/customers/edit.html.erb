@@ -1,16 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col">
+
+<!--エラーメッセージ-->
       <% if @customers.errors.any? %>
-        <div class = "col-4">
           <%= @customers.errors.count %>件のエラーが発生しました
           <ul>
             <% @customers.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
           </ul>
-        </div>
       <% end %>
+
+<!--編集フォーム-->
     <table class = "newtable" width = "100%">
       <thead>
         <tr align="center">

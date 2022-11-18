@@ -15,7 +15,9 @@ class VoicePost < ApplicationRecord
   validates :title, presence: true
   validates :introduction, presence: true
   validates :voice, presence: true
-  validates :category, presence: true
+  validates :category,
+    presence: true,
+    format: {with: /#/}
 
 
   #imageの空白を防ぐ

@@ -1,8 +1,12 @@
 <div class="container">
   <div class="row">
+
+<!--user inf-->
     <div class="col-4">
       <%= render "customers", customers: @customers %>
     </div>
+
+<!--投稿一覧-->
     <div class = "col-8">
     <table width = "100%">
       <thead>
@@ -22,6 +26,7 @@
             <td>good</td>
             <td>comment</td>
            </tr>
+           
           <% @voice_posts.each do |voice_post| %>
           <tr class = "text-center">
             <td><%= link_to voice_post.title, public_voice_post_path(voice_post) %></td>

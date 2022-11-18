@@ -8,6 +8,7 @@ class Admin < ApplicationRecord
 
   validates :email, presence: true
 
+ #imageの空白を防ぐ
   def get_image
     if image.attached?
       image

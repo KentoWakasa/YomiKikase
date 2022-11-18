@@ -1,16 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      
+<!--エラーメッセージ-->
       <% if @voice_posts.errors.any? %>
-      <div class = "col-4">
         <%= @voice_posts.errors.count %>件のエラーが発生しました
         <ul>
           <% @voice_posts.errors.full_messages.each do |message| %>
             <li><%= message %></li>
           <% end %>
         </ul>
-        </div>
       <% end %>
+      
+<!--投稿フォーム-->
       <table class = "newtable" width = "100%">
         <thead>
           <tr align="center">
@@ -23,7 +25,7 @@
               <tr><td class = "text-right">introduction</td><td class = "text-left"><%= f.text_field :introduction %></td></tr>
               <tr><td class = "text-right">image</td><td class = "text-left"><%= f.file_field :image, accept: "image/*" %></td></tr>
               <tr><td class = "text-right">audio</td><td class = "text-left"><%= f.file_field :voice %></td></tr>
-              <tr><td class = "text-right">#tag</td><td class = "text-left"><%= f.text_field :category, placeholder: ".ex: #朗読" %></td></tr>
+              <tr><td class = "text-right">#tag</td><td class = "text-left"><%= f.text_field :category, placeholder: "ex. #朗読 #怖い話" %></td></tr>
               <tr><td class = "text-center",  colspan="2"><%= f.submit '投稿' %></td></tr>
              <% end %>
           </tbody>

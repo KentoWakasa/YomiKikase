@@ -26,7 +26,6 @@ class Public::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
-#
   def guest_sign_in
     customer = Customer.guest
     sign_in customer

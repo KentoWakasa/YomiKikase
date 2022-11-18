@@ -34,6 +34,13 @@ class Public::CustomersController < ApplicationController
     end
   end
 
+  def favorites
+    # @customer = Customer.find(params[:id])
+    @favorites = Favorite.where(customer_id: @customer.id).pluck(:voice_post_id)
+    @favorites_voice_posts = VoicePost.find(favorites)
+  end
+
+
   private
   def customer_params
     params.require(:customer).permit(:name, :image, :email, :is_deleted)
